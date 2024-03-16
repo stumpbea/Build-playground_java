@@ -13,6 +13,7 @@ plugins {
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -29,6 +30,9 @@ dependencies {
 
     // PDF creator
     implementation 'org.apache.pdfbox:pdfbox:3.0.1'
+
+    //Simple Google Translate API
+    implementation group: 'app.jackychu', name: 'simple.google.translate.api', version: '1.1.0'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
