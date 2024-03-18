@@ -5,16 +5,6 @@ package build.playground;
 
 import java.io.IOException;
 
-import org.apache.commons.logging.Log;
-import org.apache.fontbox.ttf.model.Language;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
-import org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName;
-
 import com.indvd00m.ascii.render.Render;
 import com.indvd00m.ascii.render.api.ICanvas;
 import com.indvd00m.ascii.render.api.IContextBuilder;
@@ -26,36 +16,35 @@ import app.jackychu.api.simplegoogletranslate.SimpleGoogleTranslate;
 public class App {
     static String Input = "Erledigt";
     
-    public String getGreeting() {
-        return Input;
-    }
-
-    public static void main(String[] args) {
+    public static String translate(String Input) {
         SimpleGoogleTranslate translate = new SimpleGoogleTranslate();        
         //String result;
         try {
-            String result = translate.doTranslate(app.jackychu.api.simplegoogletranslate.Language.de, app.jackychu.api.simplegoogletranslate.Language.it, Input);
+            String result = translate.doTranslate(app.jackychu.api.simplegoogletranslate.Language.de,
+             app.jackychu.api.simplegoogletranslate.Language.it, Input);
             String[] a = result.split("\\\\");
             System.out.println(Input);
             System.out.println(a[0]);
             result = a[0];
-            // Ascii Art
-            IRender render = new Render();
-            IContextBuilder builder = render.newBuilder();
-            builder.width(120).height(20);
-            builder.element(new PseudoText(result));
-            ICanvas canvas = render.render(builder.build());
-            String s = canvas.getText();
-            System.out.println(s);
+            return result;
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+            // Auto-generated catch block
             e.printStackTrace();
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
+            // Auto-generated catch block
             e.printStackTrace();
         }
-
-
+        return null;
+    }
+    public static void main(String[] args) {
+        // Ascii Art
+        IRender render = new Render();
+        IContextBuilder builder = render.newBuilder();
+        builder.width(120).height(20);
+        builder.element(new PseudoText(translate(Input)));
+        ICanvas canvas = render.render(builder.build());
+        String s = canvas.getText();
+        System.out.println(s);
     }
 }
